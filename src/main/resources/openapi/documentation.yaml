@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: Job Request API
+  description: API для управления заявками на проведение работ
+  version: 1.0.0
+paths:
+  /job:
+    post:
+      summary: Создать новую заявку
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      responses:
+        '200':
+          description: Заявка успешно создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobRequest'
+  /job/{id}:
+    get:
+      summary: Получить заявку по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Заявка найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobRequest'
+        '404':
+          description: Заявка не найдена
+    put:
+      summary: Обновить заявку по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      responses:
+        '200':
+          description: Заявка успешно обновлена
+        '404':
+          description: Заявка не найдена
+components:
+  schemas:
+    JobRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        initials:
+          type: string
+        phone:
+          type: string
+        company:
+          type: string
+        desiredDate:
+          type: string
+        status:
+          type: string
